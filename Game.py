@@ -5,6 +5,10 @@ class Game:
         self.players = players
 
     def start(self):
-        input_val = int(input('please enter x value: '))
-        self.board.add_piece(self.players[0], input_val)
-        self.board.display()
+        player_one_turn = True
+        while True:
+            input_val = int(input('please enter x value: '))
+            player = self.players[0] if player_one_turn else self.players[1]
+            self.board.add_piece(player, input_val)
+            self.board.display()
+            player_one_turn = not player_one_turn
