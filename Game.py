@@ -5,5 +5,6 @@ class Game:
         self.players = players
 
     def start(self):
-        input_val = input('please enter x value: ')
+        input_val = int(input('please enter x value: '))
+        self.board.add_piece(self.players[0], input_val)
         self.board.display()

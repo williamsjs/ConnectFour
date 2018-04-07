@@ -7,7 +7,7 @@ class Board:
         board = []
         for x in range(0, 6):
             board.append([])
-            for y in range(1, 8):
+            for y in range(0, 7):
                 board[x].append('O')
         return board
 
@@ -20,5 +20,6 @@ class Board:
         print('-' * 19)
 
     def add_piece(self, player, x):
-        color = 'b' if player.player_one else 'r'
-        self.board
+        color = 'X' if player.player_one else 'Y'
+        if (self.board[-1][x-1] == 'O'):
+            self.board[-1][x-1] = color
