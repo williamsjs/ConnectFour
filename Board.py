@@ -10,7 +10,7 @@ class Board:
         for x in range(1, self.width + 1):
             print(' ', end="")
             print(str(x) + ' ', end="")
-        print('\n')
+        print()
 
         for x in self.rows[::-1]:
             for y in x:
