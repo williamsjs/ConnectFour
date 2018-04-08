@@ -8,6 +8,8 @@ class Game:
     def start(self):
         while True:
             input_val = int(input('please enter x value: '))
-            self.board.add_piece(self.players_turn, input_val)
+            piece_placed = self.board.add_piece(self.players_turn, input_val)
             self.board.display()
-            self.players_turn = self.players[0] if self.players_turn == self.players[1] else self.players[1]
+
+            if piece_placed:
+                self.players_turn = list(filter((lambda p: p != self.players_turn), self.players))[0]

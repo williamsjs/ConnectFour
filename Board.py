@@ -23,8 +23,10 @@ class Board:
 
     def add_piece(self, player, x):
         color = 'X' if player.player_one else 'Y'
+
         for i in range(-1, -self.width, -1):
             if self.board[i][x-1] == 'O':
                 self.board[i][x-1] = color
-                return
-        print('spaces filled :/')
+                return True
+        print('spaces filled :/.  Please select another column')
+        return False
