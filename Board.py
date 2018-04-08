@@ -1,11 +1,9 @@
-import Piece as p
-
 class Board:
 
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.spots = self.__build_board()
+        self.rows = self.__build_board()
 
     def display(self):
         print()
@@ -14,20 +12,18 @@ class Board:
             print(str(x) + ' ', end="")
         print('\n')
 
-        for x in self.spots[::-1]:
+        for x in self.rows[::-1]:
             for y in x:
-                disp = y.display if isinstance(y, p.Piece) else '|O|'
-                print(disp, end="")
+                print("|" + y + "|", end="")
             print()
         print(' ', end="")
         print('-' * 19)
 
     def add_piece(self, player, y):
-        piece = p.Piece(player)
-
-        for i, row in enumerate(self.spots):
+        for row in self.rows:
             if row[y-1] == 'O':
-                self.__place_piece(piece, i, y - 1)
+                row[y-1] = player.color
+                self.__check_score(player)
                 return True
         print('spaces filled :/.  Please select another column')
         return False
@@ -39,10 +35,28 @@ class Board:
             for y in range(0, self.width):
                 board[x].append('O')
         return board
+    
+    def __check_score(self, player):
+        for c in range(self.width - 3):
+            for r in range(self.height):
+                if self.rows[r][c] == player.color and self.rows[r][c+1] == player.color and self.rows[r][c+2] == player.color and self.rows[r][c+3] == player.color:
+                    print(f"{player.name} wins Across!!!")
+                    exit()
 
-    def __place_piece(self, piece, x, y):
-        piece.x = x
-        piece.y = y
-        print('x: ', x, 'y: ', y)
-        self.spots[x][y] = piece
-        print(self.spots)
+        for c in range(self.width):
+            for r in range(self.height - 3):
+                if self.rows[r][c] == player.color and self.rows[r+1][c] == player.color and self.rows[r+2][c] == player.color and self.rows[r+3][c] == player.color:
+                    print(f"{player.name} wins Vertically!!!")
+                    exit()
+
+        for c in range(self.width - 3):
+            for r in range(self.height - 3):
+                if self.rows[r][c] == player.color and self.rows[r+1][c+1] == player.color and self.rows[r+2][c+2] == player.color and self.rows[r+3][c+3] == player.color:
+                    print(f"{player.name} wins Diagonally!!!")
+                    exit()
+
+        for c in range(self.width - 3):
+            for r in range(3, self.height):
+                if self.rows[r][c] == player.color and self.rows[r-1][c+1] == player.color and self.rows[r-2][c+2] == player.color and self.rows[r-3][c+3] == player.color:
+                    print(f"{player.name} wins Diagonally!!!")
+                    exit()
