@@ -21,5 +21,7 @@ class Board:
 
     def add_piece(self, player, x):
         color = 'X' if player.player_one else 'Y'
-        if (self.board[-1][x-1] == 'O'):
-            self.board[-1][x-1] = color
+        for i in range(-1, -7, -1):
+            if self.board[i][x-1] == 'O':
+                self.board[i][x-1] = color
+                break
