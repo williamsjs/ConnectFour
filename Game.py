@@ -9,7 +9,7 @@ class Game:
         self.__display_board()
 
         while True:
-            input_val = int(input(f"{self.players_turn.name}, please enter x value: "))
+            input_val = int(input(f"{self.players_turn.name}, please enter Y value: "))
             piece_placed = self.board.add_piece(self.players_turn, input_val)
 
             self.__display_board()

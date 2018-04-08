@@ -1,9 +1,11 @@
+import Piece as p
+
 class Board:
 
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.board = self.__build_board()
+        self.spots = self.__build_board()
 
     def display(self):
         print()
@@ -12,20 +14,20 @@ class Board:
             print(str(x) + ' ', end="")
         print('\n')
 
-        for x in range(0, self.height):
-            for y in range(0, self.width):
-                print('|' + self.board[x][y] + '|', end="")
+        for x in self.spots[::-1]:
+            for y in x:
+                disp = y.display if isinstance(y, p.Piece) else '|O|'
+                print(disp, end="")
             print()
         print(' ', end="")
         print('-' * 19)
 
-    def add_piece(self, player, x):
-        color = 'X' if player.player_one else 'Y'
+    def add_piece(self, player, y):
+        piece = p.Piece(player)
 
-        for i in range(-1, -self.width, -1):
-            if self.board[i][x-1] == 'O':
-                self.board[i][x-1] = color
-                self.__check_score()
+        for i, row in enumerate(self.spots):
+            if row[y-1] == 'O':
+                self.__place_piece(piece, i, y - 1)
                 return True
         print('spaces filled :/.  Please select another column')
         return False
@@ -38,5 +40,9 @@ class Board:
                 board[x].append('O')
         return board
 
-    def __check_score(self):
-
+    def __place_piece(self, piece, x, y):
+        piece.x = x
+        piece.y = y
+        print('x: ', x, 'y: ', y)
+        self.spots[x][y] = piece
+        print(self.spots)
