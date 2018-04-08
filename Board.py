@@ -26,4 +26,5 @@ class Board:
         for i in range(-1, -self.width, -1):
             if self.board[i][x-1] == 'O':
                 self.board[i][x-1] = color
-                break
+                return
+        print('spaces filled :/')
