@@ -1,19 +1,21 @@
 class Board:
 
-    def __init__(self):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
         self.board = self.__build_board()
 
     def __build_board(self):
         board = []
-        for x in range(0, 6):
+        for x in range(0, self.height):
             board.append([])
-            for y in range(0, 7):
+            for y in range(0, self.width):
                 board[x].append('O')
         return board
 
     def display(self):
-        for x in range(0, 6):
-            for y in range(0, 7):
+        for x in range(0, self.height):
+            for y in range(0, self.width):
                 print('|' + self.board[x][y] + '|', end="")
             print()
         print(' ', end="")
@@ -21,7 +23,7 @@ class Board:
 
     def add_piece(self, player, x):
         color = 'X' if player.player_one else 'Y'
-        for i in range(-1, -7, -1):
+        for i in range(-1, -self.width, -1):
             if self.board[i][x-1] == 'O':
                 self.board[i][x-1] = color
                 break
